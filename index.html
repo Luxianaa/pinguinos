@@ -323,6 +323,280 @@ button:focus-visible{outline:3px solid var(--ink);outline-offset:4px}
   border-top-color: rgba(255, 59, 36, 0.35);
   color: #ffb4a2;
 }
+
+/* ========================================================
+   FOTO DE LOS ROCKERITOS (Solo en Modo Metal)
+   ======================================================== */
+.metal-photo-card {
+  display: none;
+}
+
+.metal .metal-photo-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  max-width: 250px;
+  width: calc(100% - 36px);
+  margin: 14px auto 8px;
+  padding: 14px 12px 12px;
+  background: linear-gradient(145deg, #241010 0%, #120707 100%);
+  border: 2px solid #ff3b24;
+  border-radius: 18px;
+  box-shadow: 
+    0 14px 34px rgba(0, 0, 0, 0.75),
+    0 0 26px rgba(255, 59, 36, 0.45),
+    inset 0 0 16px rgba(255, 59, 36, 0.2);
+  transform: rotate(-2.5deg);
+  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.28s ease;
+  animation: metalPhotoDrop 0.65s cubic-bezier(0.34, 1.56, 0.64, 1);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  z-index: 5;
+}
+
+.metal .metal-photo-card:hover {
+  transform: rotate(0deg) scale(1.04);
+  box-shadow: 
+    0 18px 42px rgba(0, 0, 0, 0.85),
+    0 0 36px rgba(255, 59, 36, 0.7),
+    inset 0 0 20px rgba(255, 154, 31, 0.3);
+}
+
+.metal .metal-photo-card:active {
+  transform: scale(0.97) rotate(-1deg);
+}
+
+@keyframes metalPhotoDrop {
+  0% {
+    opacity: 0;
+    transform: translateY(-24px) scale(0.8) rotate(-9deg);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(6px) scale(1.05) rotate(2deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(-2.5deg);
+  }
+}
+
+.metal-tape {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%) rotate(1deg);
+  width: 90px;
+  height: 20px;
+  background: rgba(255, 59, 36, 0.92);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  clip-path: polygon(4% 0%, 96% 0%, 100% 100%, 0% 100%);
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.metal-tag-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 8px;
+  padding: 0 2px;
+}
+
+.metal-badge {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #ff9a1f;
+  background: rgba(255, 59, 36, 0.22);
+  border: 1px solid rgba(255, 59, 36, 0.4);
+  padding: 3px 8px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.metal-fire-icon {
+  font-size: 14px;
+  animation: flicker 0.3s ease-in-out infinite alternate;
+}
+
+.metal-img-frame {
+  position: relative;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #000;
+  border: 1px solid rgba(255, 59, 36, 0.35);
+  box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.8);
+}
+
+.metal-img {
+  width: 100%;
+  height: auto;
+  max-height: 270px;
+  object-fit: cover;
+  object-position: center 20%;
+  display: block;
+  transition: transform 0.4s ease;
+  filter: contrast(1.08) saturate(1.1);
+}
+
+.metal-photo-card:hover .metal-img {
+  transform: scale(1.04);
+}
+
+.metal-zoom-hint {
+  position: absolute;
+  bottom: 6px;
+  right: 6px;
+  background: rgba(15, 6, 6, 0.82);
+  color: #ffd23f;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 210, 63, 0.4);
+  backdrop-filter: blur(4px);
+  pointer-events: none;
+}
+
+.metal-caption {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.metal-caption-title {
+  font-family: var(--metal);
+  font-size: 21px;
+  letter-spacing: 0.04em;
+  color: #ff9a1f;
+  line-height: 1.1;
+  text-shadow: 0 0 12px rgba(255, 59, 36, 0.7);
+}
+
+.metal-caption-sub {
+  font-size: 12px;
+  color: #ffd6ce;
+  font-style: italic;
+  margin-top: 3px;
+  opacity: 0.92;
+}
+
+/* Modal Lightbox para ver la foto en grande */
+.photo-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.photo-modal.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.photo-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 4, 4, 0.88);
+  backdrop-filter: blur(8px);
+}
+
+.photo-modal-content {
+  position: relative;
+  z-index: 1;
+  max-width: 90vw;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(160deg, #251010 0%, #100606 100%);
+  padding: 16px;
+  border-radius: 20px;
+  border: 2px solid #ff3b24;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 35px rgba(255, 59, 36, 0.55);
+  transform: scale(0.9);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.photo-modal.active .photo-modal-content {
+  transform: scale(1);
+}
+
+.photo-modal-close {
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid #ff3b24;
+  background: #1f0b0b;
+  color: #fff;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  transition: transform 0.2s, background 0.2s;
+}
+
+.photo-modal-close:hover {
+  transform: scale(1.1);
+  background: #ff3b24;
+}
+
+.photo-modal-img {
+  max-width: 100%;
+  max-height: 65vh;
+  object-fit: contain;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.photo-modal-caption {
+  font-family: var(--metal);
+  color: #ff9a1f;
+  font-size: 19px;
+  letter-spacing: 0.04em;
+  margin: 12px 0 2px;
+  text-align: center;
+  text-shadow: 0 0 10px rgba(255, 59, 36, 0.6);
+}
+
+/* Partículas de rock al hacer clic en la foto */
+.rock-particle {
+  position: fixed;
+  pointer-events: none;
+  z-index: 105;
+  font-size: 22px;
+  animation: floatRock 1.2s ease-out forwards;
+}
+@keyframes floatRock {
+  0% { opacity: 1; transform: translate(0, 0) scale(0.6) rotate(0deg); }
+  50% { opacity: 1; transform: translate(var(--tx, 0px), -50px) scale(1.2) rotate(var(--rot, 20deg)); }
+  100% { opacity: 0; transform: translate(var(--tx, 0px), -100px) scale(0.8) rotate(var(--rot, 40deg)); }
+}
 </style>
 
 <canvas id="snow" aria-hidden="true"></canvas>
@@ -392,6 +666,23 @@ button:focus-visible{outline:3px solid var(--ink);outline-offset:4px}
   <p class="msg" id="msg">Toca el botón para darle una piedrita.</p>
   <div class="buttons">
     <button id="give" type="button">Dale una piedrita</button>
+  </div>
+
+  <!-- Foto de los rockeritos (exclusiva del Modo Metal) -->
+  <div class="metal-photo-card" id="metal-photo" title="Toca para ver en grande" role="button" tabindex="0" aria-label="Foto de los dos rockeritos en modo metal">
+    <div class="metal-tape" aria-hidden="true">MOSH PASS</div>
+    <div class="metal-tag-bar">
+      <span class="metal-badge">🤘 VIP MOSHEROS</span>
+      <span class="metal-fire-icon">🔥</span>
+    </div>
+    <div class="metal-img-frame">
+      <img src="WhatsApp%20Image%202026-10-14%20at%2010.29.02%20AM.jpeg" alt="Nosotros en modo metal" class="metal-img" loading="lazy">
+      <span class="metal-zoom-hint">🔍 Toca para ampliar</span>
+    </div>
+    <div class="metal-caption">
+      <div class="metal-caption-title">Dos rockeritos</div>
+      <div class="metal-caption-sub">«que se dieron sus rockitas» 🖤</div>
+    </div>
   </div>
 
   <div class="stats">
@@ -471,6 +762,9 @@ giveBtn.addEventListener('click',()=>{
       } else {
         msg.textContent=sweet[sweetIndex];
         sweetIndex++;
+        if(sweetIndex === sweet.length){
+          showLoveNote(); // Solo al final de la última piedrita dulce
+        }
       }
     } else {
       if(metalIndex >= metal.length){
@@ -480,9 +774,11 @@ giveBtn.addEventListener('click',()=>{
         msg.textContent=metal[metalIndex];
         metalIndex++;
         doFlash();
+        if(metalIndex === metal.length){
+          showLoveNote(); // Solo al final de la última piedrita de metal
+        }
       }
     }
-    showLoveNote(); // Mostrar la nota al extremo justo después de recibir la piedra
   },900);
   setTimeout(()=>{pebble.style.transition='none';pebble.style.transform='translate(0,0)';
     requestAnimationFrame(()=>requestAnimationFrame(()=>{pebble.style.transition='';sending=false}));},1900);
@@ -509,8 +805,10 @@ if(nowPlayingDiv){
 
 function goCalm(){
   isMetal=false; body.classList.remove('metal');
+  dismissLoveNote();
   stopRiff();
   startCalmMusic();
+  closePhotoModal();
   giveBtn.textContent='Dale una piedrita';
   if(calm) calm.textContent='⚡ Modo Metal';
   if(nowPlayingText) nowPlayingText.textContent='Sonando: Deep Purple - Child in Time (versión pingüino)';
@@ -525,6 +823,7 @@ function goCalm(){
 
 function goMetal(){
   isMetal=true; body.classList.add('metal');
+  dismissLoveNote();
   stopCalmMusic();
   doFlash();
   startRiff();
@@ -538,6 +837,7 @@ function goMetal(){
   msg.textContent=metal[0];
   metalIndex=1;
   sweetIndex=0;
+  setTimeout(()=>{ if(metalPhoto) spawnRockParticles(metalPhoto); }, 350);
 }
 
 function doFlash(){flash.classList.remove('on');void flash.offsetWidth;flash.classList.add('on')}
@@ -767,8 +1067,15 @@ function hideLoveNote(){
   loveNote.classList.remove('visible');
   setTimeout(()=>{
     loveNote.hidden = true;
-    notePill.hidden = false;
+    if(notePill) notePill.hidden = false;
   }, 350);
+}
+
+function dismissLoveNote(){
+  if(!loveNote) return;
+  loveNote.classList.remove('visible');
+  loveNote.hidden = true;
+  if(notePill) notePill.hidden = true;
 }
 
 noteClose.addEventListener('click', (e)=>{
@@ -787,6 +1094,81 @@ loveNote.addEventListener('click', ()=>{
   loveNote.classList.add('bump');
   spawnHeartParticles();
 });
+
+/* ---- Foto de los rockeritos y Modal Lightbox ---- */
+const metalPhoto = document.getElementById('metal-photo');
+const photoModal = document.getElementById('photo-modal');
+const modalClose = document.getElementById('modal-close');
+const modalBackdrop = document.getElementById('modal-backdrop');
+
+function spawnRockParticles(sourceElem){
+  if(!sourceElem) return;
+  const rect = sourceElem.getBoundingClientRect();
+  const icons = ['🤘','🔥','⚡','🎸','🖤','🪨'];
+  for(let i=0; i<7; i++){
+    const p = document.createElement('span');
+    p.className = 'rock-particle';
+    p.textContent = icons[Math.floor(Math.random()*icons.length)];
+    const startX = rect.left + Math.random()*rect.width;
+    const startY = rect.top + Math.random()*rect.height*0.5;
+    const tx = (Math.random() - 0.5) * 80;
+    const rot = (Math.random() - 0.5) * 90;
+    p.style.left = startX + 'px';
+    p.style.top = startY + 'px';
+    p.style.setProperty('--tx', tx + 'px');
+    p.style.setProperty('--rot', rot + 'deg');
+    document.body.appendChild(p);
+    setTimeout(()=>p.remove(), 1200);
+  }
+}
+
+function openPhotoModal(){
+  if(!photoModal) return;
+  photoModal.hidden = false;
+  requestAnimationFrame(()=>{
+    photoModal.classList.add('active');
+  });
+}
+
+function closePhotoModal(){
+  if(!photoModal) return;
+  photoModal.classList.remove('active');
+  setTimeout(()=>{
+    photoModal.hidden = true;
+  }, 300);
+}
+
+if(metalPhoto){
+  metalPhoto.addEventListener('click', ()=>{
+    spawnRockParticles(metalPhoto);
+    openPhotoModal();
+  });
+  metalPhoto.addEventListener('keydown', (e)=>{
+    if(e.key === 'Enter' || e.key === ' '){
+      e.preventDefault();
+      spawnRockParticles(metalPhoto);
+      openPhotoModal();
+    }
+  });
+}
+
+if(modalClose) modalClose.addEventListener('click', closePhotoModal);
+if(modalBackdrop) modalBackdrop.addEventListener('click', closePhotoModal);
+document.addEventListener('keydown', (e)=>{
+  if(e.key === 'Escape' && photoModal && !photoModal.hidden){
+    closePhotoModal();
+  }
+});
 </script>
+
+<!-- Modal Lightbox para la foto metalera -->
+<div id="photo-modal" class="photo-modal" role="dialog" aria-modal="true" aria-label="Foto de los rockeritos ampliada" hidden>
+  <div class="photo-modal-backdrop" id="modal-backdrop"></div>
+  <div class="photo-modal-content">
+    <button type="button" class="photo-modal-close" id="modal-close" aria-label="Cerrar foto">✕</button>
+    <img src="WhatsApp%20Image%202026-10-14%20at%2010.29.02%20AM.jpeg" alt="Nosotros en modo metal ampliado" class="photo-modal-img">
+    <p class="photo-modal-caption">🤘 Dos rockeritos que se dieron su rockitas 🖤🔥</p>
+  </div>
+</div>
 </body>
 </html>
